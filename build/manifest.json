@@ -1,0 +1,11 @@
+{
+  "name": "Kasaya recorder",
+  "version": "1.0",
+  "description": "generate kasaya script",
+  "permissions": ["storage"],
+  "browser_action": {
+    "default_title": "Kasaya recorder",
+    "default_popup": "index.html"
+  },
+  "manifest_version": 2
+}
