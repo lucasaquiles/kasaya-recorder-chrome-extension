@@ -1,7 +1,12 @@
 import { START_RECORDER } from './actionsType'
+import { STOP_RECORDER } from './actionsType'
 
-export const recorderButton = value => ({
-	
+export const startRecord = () => ({
 	type: START_RECORDER,
-	value: value
-})
+	isRecording: true
+});
+
+export const stopRecord = () => ({
+	type: STOP_RECORDER,
+	isRecording: false
+});

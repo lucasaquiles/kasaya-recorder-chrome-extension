@@ -1,1 +1,2 @@
-export const START_RECORDER = 'START_RECORDER';
+export const START_RECORDER = 'RECORDING';
+export const STOP_RECORDER = 'PAUSING';
