@@ -1,3 +1,5 @@
+/*global chrome*/
+
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,6 +19,9 @@ class App extends Component {
   }
 
   startRecording = () => {
+
+    
+
     this.setState({
       status: true
     })
@@ -48,6 +53,21 @@ class App extends Component {
     }
   }
 }
+
+chrome.runtime.onMessage.addListener(
+    
+  function(request, sender, sendResponse) {
+
+    //  const erl = new EventRecordListener();
+    //  console.log("começou? ", erl); 
+    console.log("no ap", request);
+     if( request.message === "clicked_browser_action") {
+
+          console.log("", request);
+      //  toggle();
+     }
+  }
+);
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

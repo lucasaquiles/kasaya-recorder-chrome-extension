@@ -14,7 +14,7 @@
   "content_scripts" : [
     {
       "matches": [ "<all_urls>" ],
-      "js": ["/static/js/content.js"]
+      "js": ["/static/js/main.chunk.js"]
     }
   ],
   "manifest_version": 2

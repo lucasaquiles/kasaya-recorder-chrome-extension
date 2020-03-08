@@ -1,3 +1,6 @@
+
+/*global chrome*/
+
 class EventRecordListener {
 
     constructor() {
@@ -17,17 +20,19 @@ class EventRecordListener {
     }
 }
 
-// chrome.runtime.onMessage.addListener(
+chrome.runtime.onMessage.addListener(
     
-//     function(request, sender, sendResponse) {
+    function(request, sender, sendResponse) {
 
-//        const erl = new EventRecordListener();
-//        console.log("começou? ", erl); 
+       const erl = new EventRecordListener();
+       console.log("começou? ", erl); 
 
-//        if( request.message === "clicked_browser_action") {
-//          toggle();
-//        }
-//     }
-//  );
+       if( request.message === "clicked_browser_action") {
+
+            console.log("", request);
+        //  toggle();
+       }
+    }
+ );
 
 
