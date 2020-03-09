@@ -25,12 +25,10 @@ chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
 
        const erl = new EventRecordListener();
-       console.log("começou? ", erl); 
 
        if( request.message === "clicked_browser_action") {
 
             console.log("", request);
-        //  toggle();
        }
     }
  );

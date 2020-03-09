@@ -2,7 +2,7 @@
   "name": "Kasaya recorder",
   "version": "1.0",
   "description": "generate kasaya script",
-  "permissions": ["storage"],
+  "permissions": ["storage", "activeTab"],
   "browser_action": {
     "default_title": "Kasaya recorder",
     "default_popup": "index.html"
