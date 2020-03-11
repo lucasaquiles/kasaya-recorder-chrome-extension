@@ -1,6 +1,3 @@
-
-/*global chrome*/
-
 class EventRecordListener {
 
     constructor() {
@@ -20,17 +17,5 @@ class EventRecordListener {
     }
 }
 
-chrome.runtime.onMessage.addListener(
-    
-    function(request, sender, sendResponse) {
-
-       const erl = new EventRecordListener();
-
-       if( request.message === "clicked_browser_action") {
-
-            console.log("", request);
-       }
-    }
- );
 
 
