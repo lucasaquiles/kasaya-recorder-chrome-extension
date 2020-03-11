@@ -15,6 +15,7 @@ const mapStateToProps = store => ({
 });
 
 class App extends Component {
+
   state = {
     status: false
   }
@@ -27,7 +28,8 @@ class App extends Component {
       port.postMessage({tab: tabs[0].title});
       
       port.onMessage.addListener(function(msg) {
-        console.log(msg);
+        
+        console.log("no app: ", msg);
 
         port.postMessage({answer: "Ok"});
       });
