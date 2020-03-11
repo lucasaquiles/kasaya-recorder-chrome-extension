@@ -1,3 +1,4 @@
+
 /*global chrome*/
 
 import React, {Component} from 'react';
@@ -19,7 +20,19 @@ class App extends Component {
   }
 
   startRecording = () => {
-    
+     
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+
+      var port = chrome.runtime.connect({name: tabs[0].id.toString()});
+      port.postMessage({tab: tabs[0].title});
+      
+      port.onMessage.addListener(function(msg) {
+        console.log(msg);
+
+        port.postMessage({answer: "Ok"});
+      });
+    });
+  
     this.setState({
       status: true
     })
@@ -43,6 +56,7 @@ class App extends Component {
     }else{
       return (
         <div className="App" style={{ padding: '10px' }}>
+          <button onClick={() => this.startRecording()}>Test</button>
           <button onClick={() => startRecord()}>
             record {status}
           </button>

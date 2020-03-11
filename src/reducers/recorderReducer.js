@@ -11,7 +11,8 @@ export const recorderReducer = (state = initialState, action) => {
 	
 	switch(action.type) {
 
-		case START_RECORDER : return {
+		case START_RECORDER : 
+		return {
 			...state, 
 			isRecording: action.isRecording
 		};
