@@ -20,12 +20,37 @@ class App extends Component {
     status: false
   }
 
+
   startRecording = () => {
-     
+
+  const code = `
+    (function getContent(){
+
+      const requestedUrl = window.location.href;
+      var element;
+      document.addEventListener("click", function(event) {  
+
+          element = event.target;
+      });
+      
+      return { requestedUrl, element}
+    })();
+    `;
+
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 
       var port = chrome.runtime.connect({name: tabs[0].id.toString()});
       port.postMessage({tab: tabs[0].title});
+
+      var obj = {"tab": tabs[0].title};
+      localStorage.setItem(tabs[0].id, obj);
+
+      chrome.tabs.executeScript(tabs[0].id , { code }, function(result) {
+    
+        console.log("ok", result);
+
+        port.postMessage({answer: "Ok"});
+      }); 
       
       port.onMessage.addListener(function(msg) {
         
@@ -33,6 +58,7 @@ class App extends Component {
 
         port.postMessage({answer: "Ok"});
       });
+      
     });
   
     this.setState({
