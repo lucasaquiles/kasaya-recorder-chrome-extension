@@ -29,8 +29,26 @@ class App extends Component {
       const requestedUrl = window.location.href;
       var element;
       document.addEventListener("click", function(event) {  
-
+          
           element = event.target;
+
+          var obj = {
+            tag: element.tagName,
+            value: element.textContent
+          };
+          console.log(obj);
+
+          if(!localStorage.getItem(requestedUrl)) {
+            let item = new Array(obj);
+            localStorage.setItem(requestedUrl, JSON.stringify(item))
+          } else {
+
+            var local = localStorage.getItem(requestedUrl);
+            let array = JSON.parse(local)
+            array.push(obj);
+            
+            localStorage.setItem(requestedUrl, JSON.stringify(array));
+          }
       });
       
       return { requestedUrl, element}
@@ -40,7 +58,7 @@ class App extends Component {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 
       var port = chrome.runtime.connect({name: tabs[0].id.toString()});
-      port.postMessage({tab: tabs[0].title});
+      // port.postMessage({tab: tabs[0].title});
 
       var obj = {"tab": tabs[0].title};
       localStorage.setItem(tabs[0].id, obj);
@@ -49,7 +67,7 @@ class App extends Component {
     
         console.log("ok", result);
 
-        port.postMessage({answer: "Ok"});
+        port.postMessage({tab: result});
       }); 
       
       port.onMessage.addListener(function(msg) {

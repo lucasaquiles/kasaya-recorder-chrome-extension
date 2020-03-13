@@ -7,8 +7,6 @@ chrome.runtime.onConnect.addListener(function(port) {
     port.onMessage.addListener(function(msg) {
     
         if(msg.tab) {
-
-            console.log("agora eu mostro");
             console.log(msg);
         }
 
