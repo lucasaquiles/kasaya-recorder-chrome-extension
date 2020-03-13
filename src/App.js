@@ -22,7 +22,7 @@ class App extends Component {
 
 
   startRecording = () => {
-
+    
   const code = `
     (function getContent(){
 
@@ -30,6 +30,7 @@ class App extends Component {
       var element;
       document.addEventListener("click", function(event) {  
           
+          event.preventDefault();
           element = event.target;
 
           var obj = {
@@ -49,9 +50,17 @@ class App extends Component {
             
             localStorage.setItem(requestedUrl, JSON.stringify(array));
           }
-      });
+
+          localStorage.getItem(requestedUrl);  
+      }, false);
       
-      return { requestedUrl, element}
+     
+      const el  = {
+        url: requestedUrl,
+        json: localStorage.getItem(requestedUrl)
+      };
+
+      return el
     })();
     `;
 
@@ -78,34 +87,24 @@ class App extends Component {
       });
       
     });
-  
-    this.setState({
-      status: true
-    })
+
+    this.props.startRecord()
   }
   
   render() {
 
-    const {
-      startRecord,
-      status
-    } = this.props;
-
-    if(status) {
+    if(this.props.status) {
       return (
         <div className="App" style={{ padding: '10px' }}>
              <button onClick={() => stopRecord()}>
-                stoped record
+                Pause
               </button>
         </div>
       );
     }else{
       return (
         <div className="App" style={{ padding: '10px' }}>
-          <button onClick={() => this.startRecording()}>Test</button>
-          <button onClick={() => startRecord()}>
-            record {status}
-          </button>
+          <button onClick={() => this.startRecording()}>Record</button>
         </div>
       ) 
     }
