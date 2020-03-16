@@ -1,4 +1,4 @@
-import { START_RECORDER } from "../actions/actionsType"
+import { START_RECORDER, INIT } from "../actions/actionsType"
 import { STOP_RECORDER } from "../actions/actionsType"
 
 const initialState = {
@@ -11,6 +11,11 @@ export const recorderReducer = (state = initialState, action) => {
 	
 	switch(action.type) {
 
+		case INIT : 
+		return {
+			...state, 
+			isRecording: action.isRecording
+		};
 		case START_RECORDER : 
 		return {
 			...state, 

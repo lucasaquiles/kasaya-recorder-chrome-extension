@@ -4,11 +4,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { startRecord, stopRecord } from './actions';
+import { startRecord, stopRecord, init} from './actions';
 import './App.css';
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ startRecord, stopRecord }, dispatch);
+  bindActionCreators({ startRecord, stopRecord, init }, dispatch);
 
 const mapStateToProps = store => ({
   status: store.recorderState.isRecording
@@ -17,40 +17,41 @@ const mapStateToProps = store => ({
 class App extends Component {
 
   state = {
-    status: false
+    status: null
   }
 
   stopRecording = () => {
 
     console.log("clicando");      
-    // const code = `
-    //   (function updateStorage(){
+    const code = `
+      (function updateStorage(){
         
-    //     const requestedUrl = window.location.href;
+        const requestedUrl = window.location.href;
 
-    //     return localStorage.getItem(requestedUrl);
-    //   })();
-    // `;
+        return localStorage.getItem(requestedUrl);
+      })();
+    `;
 
-    // chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 
-    //   var port = chrome.runtime.connect({ name: tabs[0].id.toString() });
+      var port = chrome.runtime.connect({ name: tabs[0].id.toString() });
     
-    //   var obj = { "tab": tabs[0].title };
-    //   localStorage.setItem(tabs[0].id, obj);
+      var obj = { "tab": tabs[0].title };
+      localStorage.setItem(tabs[0].id, obj);
 
-    //   chrome.tabs.executeScript(tabs[0].id, { code }, function (result) {
+      chrome.tabs.executeScript(tabs[0].id, { code }, function (result) {
 
-    //     console.log("Pegando de volta", result);
+        console.log("Pegando de volta", result);
 
-    //     port.postMessage({ paused: result });
-    //   });
-    // });
+        port.postMessage({ paused: result });
+      });
+    });
 
     this.props.stopRecord();
   }
 
   startRecording = () => {
+
 
     const code = `
       (function getContent(){
@@ -115,27 +116,33 @@ class App extends Component {
       });
 
     });
-
+    
     this.props.startRecord()
   }
 
   render() {
-
+    
+    var storage = localStorage.getItem("kasaya-extension");
+    console.log("iniciou a bagaça: ", storage);
+ 
     if (this.props.status) {
+      
       return (
-        <div className="App" style={{ padding: '10px' }}>
+        <div className="App" style={{ padding: '10px' }}> 
           <button onClick={() => this.stopRecording()}>
             Pause
               </button>
         </div>
       );
     } else {
+      
       return (
         <div className="App" style={{ padding: '10px' }}>
           <button onClick={() => this.startRecording()}>Record</button>
         </div>
       )
     }
+    
   }
 }
 
