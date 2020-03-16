@@ -22,16 +22,32 @@ class App extends Component {
 
   stopRecording = () => {
 
-    const code = `
-      (function updateStorage(){
+    console.log("clicando");      
+    // const code = `
+    //   (function updateStorage(){
         
-        const requestedUrl = window.location.href;
+    //     const requestedUrl = window.location.href;
 
-        return localStorage.getItem(requestedUrl);
-      });
-    `;
+    //     return localStorage.getItem(requestedUrl);
+    //   })();
+    // `;
 
-    this.props.stopRecord()
+    // chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+
+    //   var port = chrome.runtime.connect({ name: tabs[0].id.toString() });
+    
+    //   var obj = { "tab": tabs[0].title };
+    //   localStorage.setItem(tabs[0].id, obj);
+
+    //   chrome.tabs.executeScript(tabs[0].id, { code }, function (result) {
+
+    //     console.log("Pegando de volta", result);
+
+    //     port.postMessage({ paused: result });
+    //   });
+    // });
+
+    this.props.stopRecord();
   }
 
   startRecording = () => {
@@ -108,7 +124,7 @@ class App extends Component {
     if (this.props.status) {
       return (
         <div className="App" style={{ padding: '10px' }}>
-          <button onClick={() => stopRecord()}>
+          <button onClick={() => this.stopRecording()}>
             Pause
               </button>
         </div>

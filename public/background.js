@@ -12,8 +12,12 @@ chrome.runtime.onConnect.addListener(function(port) {
 
         if(msg.tag) {
 
-            console.log("tag");
-            console.log(msg);
+            console.log("tag", msg);
+        }
+
+        if(msg.paused){
+            
+            console.log("msg", msg);
         }
         // port.postMessage({question: "Who's there?"});
     });    
