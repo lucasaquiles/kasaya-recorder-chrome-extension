@@ -67,6 +67,9 @@ class App extends Component {
               tag: element.tagName,
               value: element.textContent
             };
+
+            
+
             console.log(obj);
 
             if(!localStorage.getItem(requestedUrl)) {
